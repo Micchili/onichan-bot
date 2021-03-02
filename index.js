@@ -20,14 +20,27 @@ client.on('message', message => {
     } 
     else if (message.content === `${prefix} mokomoko`) {
         message.channel.send('お兄ちゃん❓');
-        console.log(message.content.name);
     } 
     else if (message.content === `${prefix} help`) {
         message.channel.send('まだ作ってる途中だよ。');
     } 
     else if (message.content === `${prefix} ramen ${args[1]}`) {
         const seconds = Number(args[1])
-        console.log(message.content.name);
-        message.channel.send(`ラーメンタイマーを${seconds}にしたよ❕\n${seconds}分後、あなた宛てにメンションが来ます`);
+        if (seconds <= 10 ) {
+            if (seconds >= 0) {
+                const RAMEN_TIMER = 60000
+                message.channel.send(`ラーメンタイマーを${seconds}分に設定したよ❕\n${seconds}分後、あなた宛てにメンションが来ます`);
+                setTimeout(() => {
+                    message.channel.send(`${seconds}分たったよ、残さず食べてね。`);
+                  }, seconds * RAMEN_TIMER)
+            
+            }
+            else {
+                message.channel.send("マイナスの値を使わないで❕　使い方が分からなかったら`!momoko help`を打ってね");
+            }
+        }
+        else {
+            message.channel.send(`そんなに待ったら伸びちゃうでしょ！`);
+        }
     }
 });
