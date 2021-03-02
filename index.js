@@ -31,9 +31,8 @@ client.on('message', message => {
                 const RAMEN_TIMER = 60000
                 message.channel.send(`ラーメンタイマーを${seconds}分に設定したよ❕\n${seconds}分後、あなた宛てにメンションが来ます`);
                 setTimeout(() => {
-                    message.channel.send(`${seconds}分たったよ、残さず食べてね。`);
+                    message.reply(`${seconds}分たったよ、残さず食べてね。`);
                   }, seconds * RAMEN_TIMER)
-            
             }
             else {
                 message.channel.send("マイナスの値を使わないで❕　使い方が分からなかったら`!momoko help`を打ってね");
