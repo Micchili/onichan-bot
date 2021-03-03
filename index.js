@@ -23,7 +23,7 @@ client.on('message', message => {
             message.channel.send('お兄ちゃん❓');
         }
         else if (message.content === `${prefix} help`) {
-            message.channel.send("お兄ちゃんお姉ちゃんを支える素敵なbot、onichan-bot\n\nコマンド一覧\n\n`!momoko ping`\nonichan-botが動いているか確認出来ます。\n\n`!momoko ramenあなたが指定したい分数`\nラーメンタイマーです。10分まで指定できます。負の整数には対応していません\n例\n`!momoko ramen 4`\n`!momoko ramen 6`");
+            message.channel.send("お兄ちゃんお姉ちゃんを支える素敵なbot、onichan-bot\n\nコマンド一覧\n\n`!momoko ping`\nonichan-botが動いているか確認出来ます。\n\n`!momoko ramen あなたが指定したい分数`\nラーメンタイマーです。10分まで指定できます。負の整数には対応していません\n例\n`!momoko ramen 4`\n`!momoko ramen 6`\n\n`!momoko tenki`\n神奈川県の今日の天気を表示します。");
         }
         else if (message.content === `${prefix} tenki`) {
             axios.get('https://weather.tsukumijima.net/api/forecast/city/140010')
