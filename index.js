@@ -37,7 +37,7 @@ client.on('message', message => {
                 });
         }
         else if (message.content === `${prefix} ramen ${args[1]}`) {
-            const seconds = Number(args[1])
+            const seconds = parseInt(Number(args[1]));
             if (!isNaN(seconds)) {
                 if (seconds <= 10) {
                     if (seconds >= 0) {
