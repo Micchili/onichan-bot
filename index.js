@@ -59,5 +59,8 @@ client.on('message', message => {
                 message.channel.send("数字を指定してね。");
             }
         }
+        else if (message.content === `${prefix} ${args[0]}`) {
+            message.channel.send("そんなコマンドは無いよ。桃子のことが知りたかったら`!momoko help`を打ってね。");
+        }
     }
 });
