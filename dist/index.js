@@ -13,12 +13,11 @@ const Commands = {
     ramen: "ramen",
     mokomoko: "mokomoko"
 };
-const prefix = "!momoko";
 client.once('ready', () => console.log('準備完了！'));
 client.on('message', (message) => {
     if (message.channel.id === config_json_1.channel) {
         const [command, parameter, operator] = message.content.split(' ');
-        if (command === prefix) {
+        if (command === config_json_1.prefix) {
             switch (parameter) {
                 case Commands.help:
                     {
