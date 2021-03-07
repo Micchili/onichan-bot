@@ -1,6 +1,6 @@
 import { Client, Message } from 'discord.js'
 import axios from 'axios'
-import { token , channel } from './config.json'
+import { token , channel , prefix} from './config.json'
 
 const client = new Client();
 
@@ -10,8 +10,6 @@ const Commands = {
     ramen: "ramen",
     mokomoko: "mokomoko"
 }
-
-const prefix = "!momoko"
 
 client.once('ready', () => console.log('準備完了！'));
 client.on('message', (message: Message) => {
@@ -30,7 +28,7 @@ client.on('message', (message: Message) => {
                             fields: [
                                 {
                                   name: ":one: !momoko tenki",
-                                  value: "神奈川県の今日の天気を表示します。tomorrowと打つことで明日の天気を表示することもできます。`!momoko tenki tomorrow`"
+                                  value: "神奈川県の今日の天気を表示します。tomorrowと打つことで明日の天気を表示することもできます。\n例 `!momoko tenki tomorrow`"
                                 },
                                 {
                                   name: ":two: !momoko ramen `セットする分数`",
