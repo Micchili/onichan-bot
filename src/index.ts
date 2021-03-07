@@ -11,6 +11,10 @@ const Commands = {
     mokomoko: "mokomoko"
 }
 
+type Error = {
+    error: string;
+}
+
 client.once('ready', () => console.log('準備完了！'));
 client.on('message', (message: Message) => {
     if(message.channel.id === channel) {
@@ -92,12 +96,12 @@ client.on('message', (message: Message) => {
                             })
                             .catch((error: Error) => {
                                 console.log(error);
-                                message.channel.send(`今はちょっとダメみたい…。他のコマンドを試してみてね。`);
+                                message.channel.send(`今はちょっとダメみたい…。他のコマンドを試してみてね。\n${error.error}`);
                             })
                             break
                         }
                         else {
-                            message.channel.send("コマンドが間違ってるよ。明日の天気が知りたい場合は`!momoko tenki next`と打ってね")
+                            message.channel.send("コマンドが間違ってるよ。明日の天気が知りたい場合は`!momoko tenki tomorrow`と打ってね")
                             break
                         }
                     }
@@ -125,7 +129,7 @@ client.on('message', (message: Message) => {
                             })
                             .catch((error: Error) => {
                                 console.log(error);
-                                message.channel.send(`今はちょっとダメみたい…。他のコマンドを試してみてね。`);
+                                message.channel.send(`今はちょっとダメみたい…。他のコマンドを試してみてね。\n${error.error}`);
                             })
                             break
                     }
