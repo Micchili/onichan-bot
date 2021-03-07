@@ -1,17 +1,30 @@
 {
-  "name": "onichan-discord",
+  "name": "onichan-bot",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "dependencies": {
-    "axios": "^0.21.1",
-    "discord.js": "^12.5.1",
-    "eslint": "^7.21.0"
-  },
-  "devDependencies": {},
+  "description": "周防桃子が好きです",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./dist/index.js",
+    "start:dev": "ts-node ./src/index.ts",
+    "compile": "tsc -p .",
+    "compile:test": "tsc -p . --noEmit",
+    "lint": "eslint --ext .ts --ignore-path .gitignore .",
+    "lint:fix": "eslint --ext .ts --ignore-path .gitignore . --fix",
+    "test": "npm run lint && npm run compile:test"
   },
-  "author": "",
-  "license": "ISC"
+  "dependencies": {
+    "@types/axios": "^0.14.0",
+    "discord.js": "^12.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.31",
+    "@types/ws": "^7.4.0",
+    "@typescript-eslint/eslint-plugin": "^2.34.0",
+    "@typescript-eslint/parser": "^2.34.0",
+    "eslint": "^7.21.0",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.3"
+  },
+  "engines": {
+    "node": ">=12.x.x"
+  }
 }
