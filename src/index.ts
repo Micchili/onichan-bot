@@ -1,6 +1,7 @@
 import { Client, Message } from 'discord.js'
 import axios from 'axios'
-import { token , channel , prefix} from './config.json'
+import { token, channel, prefix } from './config.json'
+import fs from "fs"
 
 const client = new Client();
 
@@ -8,7 +9,8 @@ const Commands = {
     help: "help",
     tenki: "tenki",
     ramen: "ramen",
-    mokomoko: "mokomoko"
+    mokomoko: "mokomoko",
+    ouen: "ouen"
 }
 
 type Error = {
@@ -17,10 +19,10 @@ type Error = {
 
 client.once('ready', () => console.log('準備完了！'));
 client.on('message', (message: Message) => {
-    if(message.channel.id === channel) {
+    if (message.channel.id === channel) {
         const [command, parameter, operator] = message.content.split(' ')
-        if(command === prefix) {
-            switch(parameter) {
+        if (command === prefix) {
+            switch (parameter) {
                 case Commands.help: {
                     message.channel.send({
                         embed: {
@@ -31,12 +33,12 @@ client.on('message', (message: Message) => {
                             },
                             fields: [
                                 {
-                                  name: ":one: !momoko tenki",
-                                  value: "神奈川県の今日の天気を表示します。tomorrowと打つことで明日の天気を表示することもできます。\n例 `!momoko tenki tomorrow`"
+                                    name: ":one: !momoko tenki",
+                                    value: "神奈川県の今日の天気を表示します。tomorrowと打つことで明日の天気を表示することもできます。\n例 `!momoko tenki tomorrow`"
                                 },
                                 {
-                                  name: ":two: !momoko ramen `セットする分数`",
-                                  value: "ラーメンタイマーです。10分まで指定できます。負の整数には対応していません\n例 `!momoko ramen 4` `!momoko ramen 6`"
+                                    name: ":two: !momoko ramen `セットする分数`",
+                                    value: "ラーメンタイマーです。10分まで指定できます。負の整数には対応していません\n例 `!momoko ramen 4` `!momoko ramen 6`"
                                 }
                             ]
                         }
@@ -72,32 +74,34 @@ client.on('message', (message: Message) => {
                 }
                 case Commands.tenki: {
                     const response = axios.get('https://weather.tsukumijima.net/api/forecast/city/140010');
-                    if(operator) {
-                        if(operator === "tomorrow"){
+                    if (operator) {
+                        if (operator === "tomorrow") {
                             response
-                            .then((response) => {
-                                message.channel.send({embed: {
-                                    title: response.data.forecasts[1].dateLabel + ' ' + response.data.forecasts[1].date,
-                                    description: response.data.forecasts[1].telop,
-                                    thumbnail: {
-                                        url: response.data.copyright.image.url
-                                    },
-                                    fields: [
-                                        {
-                                            name: "温度",
-                                            value: "最低温度:" + response.data.forecasts[1].temperature.min.celsius + "\n最高温度:" + response.data.forecasts[1].temperature.max.celsius
-                                        },
-                                        {
-                                            name: "天気の詳細",
-                                            value: response.data.forecasts[1].detail.weather + "\n\n" +response.data.description.bodyText
-                                        },
-                                    ]
-                                }});
-                            })
-                            .catch((error: Error) => {
-                                console.log(error);
-                                message.channel.send(`今はちょっとダメみたい…。他のコマンドを試してみてね。\n${error.error}`);
-                            })
+                                .then((response) => {
+                                    message.channel.send({
+                                        embed: {
+                                            title: response.data.forecasts[1].dateLabel + ' ' + response.data.forecasts[1].date,
+                                            description: response.data.forecasts[1].telop,
+                                            thumbnail: {
+                                                url: response.data.copyright.image.url
+                                            },
+                                            fields: [
+                                                {
+                                                    name: "温度",
+                                                    value: "最低温度:" + response.data.forecasts[1].temperature.min.celsius + "\n最高温度:" + response.data.forecasts[1].temperature.max.celsius
+                                                },
+                                                {
+                                                    name: "天気の詳細",
+                                                    value: response.data.forecasts[1].detail.weather + "\n\n" + response.data.description.bodyText
+                                                },
+                                            ]
+                                        }
+                                    });
+                                })
+                                .catch((error: Error) => {
+                                    console.log(error);
+                                    message.channel.send(`今はちょっとダメみたい…。他のコマンドを試してみてね。\n${error.error}`);
+                                })
                             break
                         }
                         else {
@@ -109,33 +113,64 @@ client.on('message', (message: Message) => {
                         response
                             .then((response) => {
                                 console.log(response.data);
-                                message.channel.send({embed: {
-                                    title: response.data.forecasts[0].dateLabel + ' ' + response.data.forecasts[0].date,
-                                    description: response.data.forecasts[0].telop,
-                                    thumbnail: {
-                                        url: response.data.copyright.image.url
-                                    },
-                                    fields: [
-                                        {
-                                            name: "温度",
-                                            value: "最低温度:" + response.data.forecasts[0].temperature.min.celsius + "\n最高温度:" + response.data.forecasts[0].temperature.max.celsius
+                                message.channel.send({
+                                    embed: {
+                                        title: response.data.forecasts[0].dateLabel + ' ' + response.data.forecasts[0].date,
+                                        description: response.data.forecasts[0].telop,
+                                        thumbnail: {
+                                            url: response.data.copyright.image.url
                                         },
-                                        {
-                                            name: "天気の詳細",
-                                            value: response.data.forecasts[0].detail.weather + "\n\n" + response.data.description.bodyText
-                                        },
-                                    ]
-                                }});
+                                        fields: [
+                                            {
+                                                name: "温度",
+                                                value: "最低温度:" + response.data.forecasts[0].temperature.min.celsius + "\n最高温度:" + response.data.forecasts[0].temperature.max.celsius
+                                            },
+                                            {
+                                                name: "天気の詳細",
+                                                value: response.data.forecasts[0].detail.weather + "\n\n" + response.data.description.bodyText
+                                            },
+                                        ]
+                                    }
+                                });
                             })
                             .catch((error: Error) => {
                                 console.log(error);
                                 message.channel.send(`今はちょっとダメみたい…。他のコマンドを試してみてね。\n${error.error}`);
                             })
-                            break
+                        break
                     }
                 }
                 case Commands.mokomoko: {
                     message.channel.send("お兄ちゃん❓")
+                    break
+                }
+                case Commands.ouen: {
+                    const channel = message.member?.voice.channel
+                    if (channel) {
+                        channel.join()
+                            .then(connection => {
+                                const dispatcher = connection.play(fs.createReadStream('src/ouen.mp3'))
+                                dispatcher.on('start', () => {
+                                    dispatcher.setVolume(0.7)
+                                    console.log("再生成功")
+                                    message.reply(`フレー❕　フレー❕　お兄ちゃん❕`);
+                                })
+
+                                dispatcher.on('error', (err) =>{
+                                    console.log(err)
+                                    message.channel.send(`今はちょっとダメみたい…他のコマンドを試してみてね。`);
+                                    connection.disconnect();
+                                })
+
+                                dispatcher.on('finish', () => {
+                                    console.log('再生終わり');
+                                    connection.disconnect();
+                                });
+                            });
+                    }
+                    else {
+                        message.channel.send("どこかのボイスチャンネルに入ってね❕")
+                    }
                     break
                 }
                 default:
