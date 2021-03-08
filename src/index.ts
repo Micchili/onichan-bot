@@ -43,8 +43,8 @@ client.on('message', (message: Message) => {
                             ]
                         }
                     })
-                }
                     break;
+                }
                 case Commands.ramen: {
                     const seconds = parseInt(operator)
                     if (!isNaN(seconds)) {
