@@ -149,7 +149,7 @@ client.on('message', (message: Message) => {
                     if (channel) {
                         channel.join()
                             .then(connection => {
-                                const dispatcher = connection.play(fs.createReadStream('src/ouen.mp3'))
+                                const dispatcher = connection.play(fs.createReadStream('src/voice/ouen.mp3'))
                                 dispatcher.on('start', () => {
                                     dispatcher.setVolume(0.7)
                                     console.log("再生成功")
