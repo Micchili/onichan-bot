@@ -151,7 +151,7 @@ client.on('message', (message: Message) => {
                             .then(connection => {
                                 const dispatcher = connection.play(fs.createReadStream('src/voice/ouen.mp3'))
                                 dispatcher.on('start', () => {
-                                    dispatcher.setVolume(0.7)
+                                    dispatcher.setVolume(0.5)
                                     console.log("再生成功")
                                     message.reply(`フレー❕　フレー❕　お兄ちゃん❕`);
                                 })
