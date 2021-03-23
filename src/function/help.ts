@@ -8,5 +8,6 @@ export function help() {
         .addField(":one: !momoko tenki" , "神奈川県の今日の天気を表示します。tomorrowと打つことで明日の天気を表示することもできます。\n例 `!momoko tenki tomorrow`")
         .addField(":two: !momoko ramen `セットする分数`" , "ラーメンタイマーです。10分まで指定できます。\n例 `!momoko ramen 4` `!momoko ramen 6`")
         .addField(":three: !momoko ouen" , "応援してくれます")
-    return (embed)
+
+    return embed
 }
