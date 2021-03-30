@@ -1,6 +1,6 @@
 export function ramen(second: number): {massage: string , correct?: boolean} {
     if (!isNaN(second)) {
-        if (second <= 10) {
+        if (second <= 15) {
             if (second >= 0) {
                 return {
                     massage: `ラーメンタイマーを${second}分に設定したよ❕\n${second}分後、あなた宛てにメンションが来ます`,
