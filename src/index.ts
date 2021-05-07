@@ -7,12 +7,12 @@ import { ramen , timer } from './function/ramen'
 import { tenki } from './function/tenki'
 
 
-const CommandList = {
-    help: "help",
-    tenki: "tenki",
-    ramen: "ramen",
-    mokomoko: "mokomoko",
-    ouen: "ouen"
+const COMMAND_LIST = {
+    HELP: "help",
+    TENKI: "tenki",
+    RAMEN: "ramen",
+    MOKOMOKOK: "mokomoko",
+    OUEN: "ouen"
 }
 
 const client = new Client();
@@ -23,11 +23,11 @@ client.on('message', async (message: Message): Promise<void> => {
         const [command, parameter, operator] = message.content.split(' ')
         if (command === prefix) {
             switch (parameter) {
-                case CommandList.help: {
+                case COMMAND_LIST.HELP: {
                     message.channel.send(help())
                     break;
                 }
-                case CommandList.ramen: {
+                case COMMAND_LIST.RAMEN: {
                     const seconds = parseInt(operator)
                     const { massage , correct } = ramen(seconds)
                     if (correct) {
@@ -40,16 +40,16 @@ client.on('message', async (message: Message): Promise<void> => {
                         break
                     }
                 }
-                case CommandList.tenki: {
+                case COMMAND_LIST.TENKI: {
                     const massage = await tenki()
                     message.channel.send(massage)
                     break
                 }
-                case CommandList.mokomoko: {
+                case COMMAND_LIST.MOKOMOKOK: {
                     message.channel.send("お兄ちゃん❓")
                     break
                 }
-                case CommandList.ouen: {
+                case COMMAND_LIST.OUEN: {
                     const channel = message.member?.voice.channel
                     if (channel) {
                         channel.join()
