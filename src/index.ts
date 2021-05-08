@@ -44,7 +44,7 @@ client.on('message', async (message: Message): Promise<void> => {
                     }
                 }
                 case COMMAND_LIST.TENKI: {
-                    const massage = await tenki()
+                    const massage = await tenki(Number(operator))
                     message.channel.send(massage)
                     break
                 }
