@@ -3,7 +3,7 @@ import fs from "fs"
 
 import { token, channel, prefix } from './config.json'
 import { help } from './function/help'
-import { ramen , timer } from './function/ramen'
+import { ramen } from './function/ramen'
 import { tenki } from './function/tenki'
 
 
@@ -32,7 +32,10 @@ client.on('message', async (message: Message): Promise<void> => {
                     const { massage , correct } = ramen(seconds)
                     if (correct) {
                         message.channel.send(massage)
-                        message.reply(await timer(seconds));
+                        const RAMEN_TIMER = 60000
+                        setTimeout(() => {
+                            message.reply(`${seconds}分たったよ、あったかいうちに食べてね。`)
+                        }, seconds * RAMEN_TIMER)
                         break
                     }
                     else {
