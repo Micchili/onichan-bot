@@ -5,9 +5,9 @@ export async function areaCode(pref: Pref): Promise<any> {
     if (ereaCodeJson) {
         for (const key in ereaCodeJson.data.offices) {
             if (ereaCodeJson.data.offices[key].name == pref) {
-                return("県のコード:" + ereaCodeJson.data.offices[key].parent + "\n" + "市のコード:" + ereaCodeJson.data.offices[key].children)
+                return(pref + "のエリアコード:" + ereaCodeJson.data.offices[key].parent)
             }
         }
-        return("該当する名前が無かったよ。")
+        return("該当するエリアコードが無かったよ。")
     }
 }
