@@ -7,7 +7,7 @@ interface TenkiResult {
 }
 
 export async function tenki(areaCode = '140000'): Promise<TenkiResult> {
-  if (areaCode.length !== 6) {
+  if (areaCode.length !== 6 || isNaN(parseInt(areaCode)) || !parseInt(areaCode)) {
     return {
       message: 'エリアコードが間違ってるよ',
       success: false
