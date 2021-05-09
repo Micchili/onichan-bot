@@ -5,14 +5,16 @@ import { token, channel, prefix } from './config.json'
 import { help } from './function/help'
 import { ramen } from './function/ramen'
 import { tenki } from './function/tenki'
-
+import { areaCode } from './function/areaCode'
+import { Pref } from './pref'
 
 const COMMAND_LIST = {
     HELP: "help",
     TENKI: "tenki",
     RAMEN: "ramen",
     MOKOMOKOK: "mokomoko",
-    OUEN: "ouen"
+    OUEN: "ouen",
+    AREA: "area"
 }
 
 const client = new Client();
@@ -81,6 +83,15 @@ client.on('message', async (message: Message): Promise<void> => {
                     }
                     break
                 }
+                case COMMAND_LIST.AREA: {
+                    if (operator) {
+                        message.channel.send(await areaCode(operator as Pref))
+                    }
+                    else {
+                        message.channel.send("検索したい県や地方を入力してね")
+                    }
+                }
+                break
                 default:
                     message.channel.send("そんなコマンドは無いよ。桃子のことが知りたかったら`!momoko help`を打ってね")
                     break
