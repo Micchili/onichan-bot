@@ -1,13 +1,13 @@
 import Discord from "discord.js"
 import axios from 'axios'
 
-export async function tenki(areaCode?: number) {
+export async function tenki(areaCode?: string) {
     let pathCode
     if (areaCode) {
         pathCode = areaCode
     }
     else {
-        pathCode = 140000
+        pathCode = '140000'
     }
     try {
         const response: any = await axios.get(`https://www.jma.go.jp/bosai/forecast/data/forecast/${pathCode}.json`)
