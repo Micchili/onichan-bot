@@ -1,36 +1,41 @@
-export function ramen(second: number): {massage: string , correct?: boolean} {
-    if (!isNaN(second)) {
-        if (second <= 15) {
-            if (second >= 0) {
-                return {
-                    massage: `ラーメンタイマーを${second}分に設定したよ❕\n${second}分後、あなた宛てにメンションが来ます`,
-                    correct: true
-                }
-            }
-            else {
-                return {
-                    massage: "マイナスの値を使わないで❕　使い方が分からなかったら`!momoko help`を打ってね"
-                }
-            }
-        }
-        else {
-            return {
-                massage: "そんなに待ったら伸びちゃうでしょ！"
-            }
-        }
-    }
-    else {
-        return {
-            massage: "数字を指定してね。"
-        }
-    }
+interface RamenResult {
+  message: string;
+  success: boolean;
 }
 
-export function timer(second: number): Promise<string> {
-    const RAMEN_TIMER = 60000
-    return new Promise(() => {
-        setTimeout(() => {
-            `${second}分たったよ、あったかいうちに食べてね。`
-        }, second * RAMEN_TIMER)
-    })
+export function ramen(arg: string): RamenResult {
+  const minutes = parseInt(arg);
+
+  if (isNaN(minutes)) {
+    return {
+      message: '数字を指定してね。',
+      success: false
+    };
+  }
+
+  if (minutes > 15) {
+    return {
+      message: 'そんなに待ったら伸びちゃうでしょ！',
+      success: false
+    };
+  }
+
+  const message = minutes ?
+    `ラーメンタイマーを${minutes}分に設定したよ❕\n${minutes}分後、あなた宛てにメンションが来ます` :
+    'マイナスの値を使わないで❕　使い方が分からなかったら`!momoko help`を打ってね';
+  return {
+    message: message,
+    success: Boolean(minutes)
+  };
+}
+
+/**
+ * タイマー
+ * @param { string } arg 計測する時間(分)
+ * @returns { string } 完了通知
+ */
+export async function timer(arg: string): Promise<string> {
+  const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+  await sleep(parseInt(arg) * 60000);
+  return `${arg}分たったよ、あったかいうちに食べてね。`;
 }
