@@ -47,7 +47,7 @@ client.on('message', async (message: Message): Promise<void> => {
                 }
                 case COMMAND_LIST.TENKI: {
                     if (operator.length === 6) {
-                        const massage = await tenki(Number(operator))
+                        const massage = await tenki(operator)
                         message.channel.send(massage)
                     }
                     else {
