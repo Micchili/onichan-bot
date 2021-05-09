@@ -46,8 +46,13 @@ client.on('message', async (message: Message): Promise<void> => {
                     }
                 }
                 case COMMAND_LIST.TENKI: {
-                    const massage = await tenki(Number(operator))
-                    message.channel.send(massage)
+                    if (operator.length === 6) {
+                        const massage = await tenki(Number(operator))
+                        message.channel.send(massage)
+                    }
+                    else {
+                        message.channel.send("エリアコードが間違ってるよ")
+                    }
                     break
                 }
                 case COMMAND_LIST.MOKOMOKOK: {
