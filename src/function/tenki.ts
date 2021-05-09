@@ -2,12 +2,15 @@ import Discord from "discord.js"
 import axios from 'axios'
 
 export async function tenki(areaCode?: number) {
-    let pathCode = 140000
+    let pathCode
     if (areaCode) {
         pathCode = areaCode
     }
-    const response = await axios.get(`https://www.jma.go.jp/bosai/forecast/data/forecast/${pathCode}.json`) as any
-    if (response) {
+    else {
+        pathCode = 140000
+    }
+    try {
+        const response: any = await axios.get(`https://www.jma.go.jp/bosai/forecast/data/forecast/${pathCode}.json`)
         const kionMin = response.data[0].timeSeries[2].areas[0].temps[0]
         const kionMax = response.data[0].timeSeries[2].areas[0].temps[1]
         const weathersText = response.data[0].timeSeries[0].areas[1].weathers[0]
@@ -20,7 +23,7 @@ export async function tenki(areaCode?: number) {
             .addField("天気の詳細", weathersText)
 
         return embed
-    } else {
-        return "サーバーがエラーを起こしているか、エリアコードが間違ってるよ"
+    } catch (error) {
+        return "サーバーがエラーを起こしているか、エリアコードが間違ってるよ\n" + `${error}`
     }
 }
