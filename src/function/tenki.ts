@@ -1,5 +1,5 @@
-import { MessageEmbed } from 'discord.js';
 import axios from 'axios';
+import { MessageEmbed } from 'discord.js';
 
 interface TenkiResult {
   message: MessageEmbed | string;
@@ -23,21 +23,10 @@ export async function tenki(areaCode = '140000'): Promise<TenkiResult> {
     const todayTime = response.data[0].reportDatetime;
     const town = response.data[0].publishingOffice;
 
-    const embedMessage = new MessageEmbed(
-      {
-        title: town + todayTime,
-        fields: [
-          {
-            name: '温度',
-            value: `最低温度:${kionMin}\n最高温度:${kionMax}`
-          },
-          {
-            name: '天気の詳細',
-            value: weathersText
-          }
-        ]
-      }
-    );
+    const embedMessage = new MessageEmbed();
+    embedMessage.setTitle(town + todayTime);
+    embedMessage.addField('温度', `最低温度:${kionMin}\n最高温度:${kionMax}`);
+    embedMessage.addField('天気の詳細', weathersText);
 
     return {
       message: embedMessage,
