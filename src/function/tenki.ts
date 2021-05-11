@@ -7,10 +7,14 @@ interface TenkiResult {
 }
 
 export async function tenki(areaCode = '140000'): Promise<TenkiResult> {
-  if (areaCode.length !== 6 || isNaN(parseInt(areaCode)) || !parseInt(areaCode)) {
+  if (
+    areaCode.length !== 6 ||
+    isNaN(parseInt(areaCode)) ||
+    !parseInt(areaCode)
+  ) {
     return {
       message: 'エリアコードが間違ってるよ',
-      success: false
+      success: false,
     };
   }
 
@@ -30,12 +34,12 @@ export async function tenki(areaCode = '140000'): Promise<TenkiResult> {
 
     return {
       message: embedMessage,
-      success: true
+      success: true,
     };
   } catch (error) {
     return {
       message: `サーバーがエラーを起こしているか、エリアコードが間違ってるよ\n${error}`,
-      success: false
+      success: false,
     };
   }
 }
