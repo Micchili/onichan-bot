@@ -26,13 +26,13 @@ client.on('message', async (message: Message): Promise<void> => {
     if (command === prefix) {
       switch (parameter) {
         case COMMAND_LIST.HELP: {
-          message.reply(help())
+          message.channel.send(help())
           break;
         }
         // ramen
         case COMMAND_LIST.RAMEN: {
           const ramenResult = ramen(operator);
-          message.reply(ramenResult.message);
+          message.channel.send(ramenResult.message);
           if (ramenResult.success) {
             const timerMessage = await timer(operator);
             message.reply(timerMessage);
@@ -42,11 +42,11 @@ client.on('message', async (message: Message): Promise<void> => {
         // tenki
         case COMMAND_LIST.TENKI: {
           const tenkiResult = await tenki(operator);
-          message.reply(tenkiResult.message);
+          message.channel.send(tenkiResult.message);
           break;
         }
         case COMMAND_LIST.MOKOMOKOK: {
-          message.reply('お兄ちゃん❓')
+          message.channel.send('お兄ちゃん❓')
           break
         }
         case COMMAND_LIST.OUEN: {
@@ -58,12 +58,12 @@ client.on('message', async (message: Message): Promise<void> => {
                 dispatcher.on('start', () => {
                   dispatcher.setVolume(0.5)
                   console.log('再生成功')
-                  message.reply(`フレー❕　フレー❕　お兄ちゃん❕`);
+                  message.channel.send(`フレー❕　フレー❕　お兄ちゃん❕`);
                 })
 
                 dispatcher.on('error', (err) => {
                   console.log(err)
-                  message.reply(`今はちょっとダメみたい…他のコマンドを試してみてね。`);
+                  message.channel.send(`今はちょっとダメみたい…他のコマンドを試してみてね。`);
                   connection.disconnect();
                 })
 
@@ -74,21 +74,21 @@ client.on('message', async (message: Message): Promise<void> => {
               });
           }
           else {
-            message.reply('どこかのボイスチャンネルに入ってね❕')
+            message.channel.send('どこかのボイスチャンネルに入ってね❕')
           }
           break
         }
         case COMMAND_LIST.AREA: {
           if (operator) {
-            message.reply(await areaCode(operator as Pref))
+            message.channel.send(await areaCode(operator as Pref))
           }
           else {
-            message.reply('検索したい県や地方を入力してね')
+            message.channel.send('検索したい県や地方を入力してね')
           }
         }
           break
         default:
-          message.reply('そんなコマンドは無いよ。桃子のことが知りたかったら`!momoko help`を打ってね')
+          message.channel.send('そんなコマンドは無いよ。桃子のことが知りたかったら`!momoko help`を打ってね')
           break
       }
     }
