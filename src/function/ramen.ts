@@ -13,11 +13,10 @@ export function ramen(arg: string): RamenResult {
     };
   }
 
-  if (!minutes) {
+  if (minutes <= 0) {
     return {
-      message:
-        'マイナスの値を使わないで❕　使い方が分からなかったら`!momoko help`を打ってね',
-      success: false,
+      message: '0より上の値を入力して❕　分からなかったら`!momoko help`を打ってね',
+      success: false
     };
   } else if (minutes > 15) {
     return {
