@@ -29,7 +29,6 @@ client.on('message', async (message: Message): Promise<void> => {
           message.channel.send(help());
           break;
         }
-        // ramen
         case COMMAND_LIST.RAMEN: {
           const ramenResult = ramen(operator);
           message.channel.send(ramenResult.message);
@@ -39,7 +38,6 @@ client.on('message', async (message: Message): Promise<void> => {
           }
           break;
         }
-        // tenki
         case COMMAND_LIST.TENKI: {
           const tenkiResult = await tenki(operator);
           message.channel.send(tenkiResult.message);
