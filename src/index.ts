@@ -17,7 +17,8 @@ const COMMAND_LIST = {
   AREA: 'area',
 };
 
-const OUEN_VOICE_PATH = 'src/voice/momoko_ouen.mp3';
+const LONG_VOICE_PATH = 'src/voice/momoko_long.mp3';
+const SHORT_VOICE_PATH = 'src/voice/momoko_short.mp3';
 
 const client = new Client();
 
@@ -54,7 +55,7 @@ client.on('message', async (message: Message): Promise<void> => {
           if (channel) {
             channel.join().then((connection) => {
               const dispatcher = connection.play(
-                fs.createReadStream(OUEN_VOICE_PATH)
+                fs.createReadStream(operator === "long" ? LONG_VOICE_PATH : SHORT_VOICE_PATH)
               );
               dispatcher.on('start', () => {
                 dispatcher.setVolume(0.5);
