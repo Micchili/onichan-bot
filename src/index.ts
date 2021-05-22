@@ -12,10 +12,12 @@ const COMMAND_LIST = {
   HELP: 'help',
   TENKI: 'tenki',
   RAMEN: 'ramen',
-  MOKOMOKOK: 'mokomoko',
+  MOKOMOKO: 'mokomoko',
   OUEN: 'ouen',
   AREA: 'area',
 };
+
+const OUEN_VOICE_PATH = 'src/voice/momoko_ouen.mp3';
 
 const client = new Client();
 
@@ -43,7 +45,7 @@ client.on('message', async (message: Message): Promise<void> => {
           message.channel.send(tenkiResult.message);
           break;
         }
-        case COMMAND_LIST.MOKOMOKOK: {
+        case COMMAND_LIST.MOKOMOKO: {
           message.channel.send('お兄ちゃん❓');
           break;
         }
@@ -52,7 +54,7 @@ client.on('message', async (message: Message): Promise<void> => {
           if (channel) {
             channel.join().then((connection) => {
               const dispatcher = connection.play(
-                fs.createReadStream('src/voice/ouen.mp3')
+                fs.createReadStream(OUEN_VOICE_PATH)
               );
               dispatcher.on('start', () => {
                 dispatcher.setVolume(0.5);
